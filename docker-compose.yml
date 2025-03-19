@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  dnsdist:
+    container_name: dns-server
+    image: powerdns/dnsdist-master
+    ports:
+      - 53:53
+      - 53:53/udp
+      - 5199:5199
+    volumes:
+      - ./dnsdist.conf:/etc/dnsdist/dnsdist.conf
+    healthcheck:
+      test: ["CMD-SHELL","dnsdist --check-config"]
+    restart: always
